@@ -1,24 +1,20 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import Appbar from './components/Appbar/Appbar'
+import Dashboard from './components/Dashboard/Dashboard';
+// import Table from './components/Dashboard/Table'
+// import Chart from './components/Dashboard/Chart'
+// import Budget from './components/Dashboard/Budget'
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       <Appbar title="Convention Planner">
+        <Dashboard />
+       {/* <Table /> 
+       <Chart /> 
+       <Budget />  */}
+      </Appbar >
     </div>
   );
 }
