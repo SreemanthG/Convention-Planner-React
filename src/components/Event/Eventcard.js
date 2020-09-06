@@ -83,7 +83,7 @@ export default function DetailedAccordion() {
         <AccordionActions>
           <Button size="small">Cancel</Button>
           <Button size="small" color="primary">
-            Save
+            View
           </Button>
         </AccordionActions>
       </Accordion>
