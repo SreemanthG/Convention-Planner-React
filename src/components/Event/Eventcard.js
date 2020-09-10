@@ -58,34 +58,54 @@ export default function DetailedAccordion() {
           id="panel1c-header"
         >
           <div className={classes.column}>
-            <Typography className={classes.heading}>Location</Typography>
+            <Typography  variant="h3" className={classes.heading}>Event Name</Typography>
           </div>
           <div className={classes.column}>
-            <Typography className={classes.secondaryHeading}>Select trip destination</Typography>
+            <Typography className={classes.secondaryHeading}>Description</Typography>
+          </div>
+          <div className={classes.column}>
+          <Typography className={classes.secondaryHeading}>Details</Typography>
           </div>
         </AccordionSummary>
         <AccordionDetails className={classes.details}>
           <div className={classes.column} />
-          <div className={classes.column}>
+          {/* <div className={classes.column}>
             <Chip label="Barbados" onDelete={() => {}} />
+          </div> */}
+          <div className={clsx(classes.column, classes.helper)}>
+            <Typography variant="caption">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus nihil praesentium quibusdam odio facere reprehenderit rem non at enim animi repudiandae doloremque, totam officiis, alias ea vitae, dolorem natus odit?
+              <br />
+              {/* <a href="#secondary-heading-and-columns" className={classes.link}>
+                Learn more
+              </a> */}
+            </Typography>
           </div>
           <div className={clsx(classes.column, classes.helper)}>
             <Typography variant="caption">
-              Select your destination of choice
-              <br />
-              <a href="#secondary-heading-and-columns" className={classes.link}>
-                Learn more
-              </a>
+              Registration: 500/-
             </Typography>
+            <br />
+            <Typography variant="caption">
+              Date: 10/212/200
+            </Typography>
+            <br />
+
+            <Typography variant="caption">
+              Contact Number: 9381146658
+            </Typography>
+            <br />
+
           </div>
         </AccordionDetails>
         <Divider />
         <AccordionActions>
-          <Button size="small">Cancel</Button>
+          {/* <Button size="small">Cancel</Button> */}
           <Button size="small" color="primary">
             View
           </Button>
         </AccordionActions>
+        
       </Accordion>
     </div>
   );

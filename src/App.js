@@ -13,10 +13,10 @@ function App() {
   return (
     <div className="App">
        <Appbar title="Convention Planner">
-        {/* <Dashboard />  */}
-        {/* <CurrentEvent /> */}
-       {/* <Addevent /> */}
-       <ViewEvent />
+        <Dashboard /> 
+        {/* <CurrentEvent />
+       <Addevent />
+       <ViewEvent /> */}
 
        {/* <Table /> 
        <Chart /> 
