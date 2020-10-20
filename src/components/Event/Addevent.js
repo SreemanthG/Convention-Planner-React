@@ -19,9 +19,9 @@ export default function AddressForm() {
             required
             id="firstName"
             name="firstName"
-            label="First name"
+            label="Event Name"
             fullWidth
-            autoComplete="given-name"
+            autoComplete=""
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -29,9 +29,9 @@ export default function AddressForm() {
             required
             id="lastName"
             name="lastName"
-            label="Last name"
+            label="Caption"
             fullWidth
-            autoComplete="family-name"
+            autoComplete=""
           />
         </Grid>
         <Grid item xs={12}>
@@ -39,18 +39,18 @@ export default function AddressForm() {
             required
             id="address1"
             name="address1"
-            label="Address line 1"
+            label="Description"
             fullWidth
-            autoComplete="shipping address-line1"
+            autoComplete=""
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             id="address2"
             name="address2"
-            label="Address line 2"
+            label="Address"
             fullWidth
-            autoComplete="shipping address-line2"
+            autoComplete="shipping address-line1"
           />
         </Grid>
         <Grid item xs={12} sm={6}>

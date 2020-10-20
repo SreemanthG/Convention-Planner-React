@@ -17,7 +17,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-
+import {Link} from 'react-router-dom';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -78,6 +78,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PersistentDrawerLeft(props) {
+  const navStyle = {
+    color:'#202020',
+    textDecoration:"none"
+}
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -130,11 +134,17 @@ export default function PersistentDrawerLeft(props) {
         </div>
         <Divider />
         <List>
-          {['Dashboard', 'Profile', 'Budget', 'Events'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+          {[{name:'Dashboard',link:"/home"},
+          {name:'Profile',link:"/event/view"},
+          {name:'Budget',link:"/events/new"},
+          {name:'Events',link:"/events"}].map((item, index) => (
+            <Link style={navStyle} to={item.link}>
+              <ListItem button key={item.name}>
+                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                <ListItemText primary={item.name} />
+              </ListItem>
+            </Link>
+            
           ))}
         </List>
         <Divider />
