@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DetailedAccordion() {
+export default function DetailedAccordion(props) {
   const classes = useStyles();
 
   return (
@@ -58,7 +58,7 @@ export default function DetailedAccordion() {
           id="panel1c-header"
         >
           <div className={classes.column}>
-            <Typography  variant="h3" className={classes.heading}>Event Name</Typography>
+            <Typography  variant="h3" className={classes.heading}>{props.name}</Typography>
           </div>
           <div className={classes.column}>
             <Typography className={classes.secondaryHeading}>Description</Typography>
@@ -74,7 +74,8 @@ export default function DetailedAccordion() {
           </div> */}
           <div className={clsx(classes.column, classes.helper)}>
             <Typography variant="caption">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus nihil praesentium quibusdam odio facere reprehenderit rem non at enim animi repudiandae doloremque, totam officiis, alias ea vitae, dolorem natus odit?
+              {props.description}
+              {/* Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus nihil praesentium quibusdam odio facere reprehenderit rem non at enim animi repudiandae doloremque, totam officiis, alias ea vitae, dolorem natus odit? */}
               <br />
               {/* <a href="#secondary-heading-and-columns" className={classes.link}>
                 Learn more
@@ -83,7 +84,7 @@ export default function DetailedAccordion() {
           </div>
           <div className={clsx(classes.column, classes.helper)}>
             <Typography variant="caption">
-              Registration: 500/-
+              Registration:{props.price}/-
             </Typography>
             <br />
             <Typography variant="caption">
@@ -101,7 +102,7 @@ export default function DetailedAccordion() {
         <Divider />
         <AccordionActions>
           {/* <Button size="small">Cancel</Button> */}
-          <Button size="small" color="primary">
+          <Button size="small" color="primary" onclick={()=>{}}>
             View
           </Button>
         </AccordionActions>
