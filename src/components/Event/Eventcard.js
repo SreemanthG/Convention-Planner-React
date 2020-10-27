@@ -10,7 +10,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-
+import {Link} from 'react-router-dom';
+import { Grid } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -102,9 +103,17 @@ export default function DetailedAccordion(props) {
         <Divider />
         <AccordionActions>
           {/* <Button size="small">Cancel</Button> */}
-          <Button size="small" color="primary" onclick={()=>{}}>
+         
+          <Grid container spacing={3}>
+
+            <Grid item xs={6} sm={3}>
+            <Link to={`/event/${props.id}/view/`}> 
+          <Button size="small" color="primary">
             View
           </Button>
+          </Link>
+            </Grid>
+          </Grid>
         </AccordionActions>
         
       </Accordion>

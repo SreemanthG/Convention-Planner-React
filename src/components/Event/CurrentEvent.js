@@ -6,6 +6,8 @@ import Tabnav from './Tabnav';
 import Eventcard from './Eventcard';
 import axios from '../../axios'
 import Add from '../Floatingbtn/Add'
+import {Link} from 'react-router-dom';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -25,7 +27,7 @@ export default function CenteredGrid() {
     async function fetchData(str) {
     const data = await axios.get(str, {
         headers: {
-          Authorization: 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmOGRkMGQ5YTMyZjUyMGVkNDI0NTQxNCIsImlhdCI6MTYwMzI5Mjg4NSwiZXhwIjoxNjAzMjk2NDg1fQ.Y_qRag5J9r8Fhn14IzmPYUHztJvlxxBsyWkPS_V_mpo" //the token is a variable which holds the token
+          Authorization: localStorage.getItem("token")//the token is a variable which holds the token
         }
       })
     console.log(data);
@@ -36,7 +38,7 @@ export default function CenteredGrid() {
   });
   return (
     <div className={classes.root}>
-        <Add/>
+        <Link to="event/new"><Add/> </Link>
       <Grid container spacing={3}>
         {/* <Grid item xs={12}>
             <Tabnav />
@@ -50,21 +52,7 @@ export default function CenteredGrid() {
           <Grid item xs={12}>
             <Eventcard name="" description="" price="" />
           </Grid>
-        <Grid item xs={12}>
-            <Eventcard />
-        </Grid>
-        <Grid item xs={12}>
-            <Eventcard />
-        </Grid>
-        <Grid item xs={12}>
-            <Eventcard />
-        </Grid>
-        <Grid item xs={12}>
-            <Eventcard />
-        </Grid>
-        <Grid item xs={12}>
-            <Eventcard />
-        </Grid> */}
+      */}
         
       </Grid>
     </div>

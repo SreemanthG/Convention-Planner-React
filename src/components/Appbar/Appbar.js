@@ -149,11 +149,15 @@ export default function PersistentDrawerLeft(props) {
         </List>
         <Divider />
         <List>
-          {['Send Mail', 'Settings'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+          {[{name:'Send Mail',link:"/sendmail"},
+          {name:'Settings',link:"/settings"},
+          {name:'Logout',link:"/logout"}].map((item, index) => (
+           <Link style={navStyle} to={item.link}>
+           <ListItem button key={item.name}>
+             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+             <ListItemText primary={item.name} />
+           </ListItem>
+           </Link>
           ))}
         </List>
       </Drawer>

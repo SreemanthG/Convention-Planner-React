@@ -50,17 +50,17 @@ const useStyles = makeStyles((theme) => ({
 //                 console.log(error)
 //             })
 // }
-export default function Orders() {
+export default function Orders(props) {
   const classes = useStyles();
   const [events, setEvents] = useState({});
   useEffect(() => {
     async function fetchData(str) {
     const data = await axios.get(str, {
         headers: {
-          Authorization: localStorage.getItem("token")// 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmOGRkMGQ5YTMyZjUyMGVkNDI0NTQxNCIsImlhdCI6MTYwMzY0MzIzMywiZXhwIjoxNjAzNjQ2ODMzfQ.viwysV992ikkJE2NV9AGy1aJqH9CkbpmBa8nbhIjXjI" //the token is a variable which holds the token
+          Authorization: localStorage.getItem("token")//'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmOGRkMGQ5YTMyZjUyMGVkNDI0NTQxNCIsImlhdCI6MTYwMzYzMTY4NSwiZXhwIjoxNjAzNjM1Mjg1fQ.MJSd5bwpTFfwCkArZao3Td-thXXuA6xabMgp9Ek0s3c" //the token is a variable which holds the token
         }
       })
-    // console.log(data);
+    console.log(data);
       setEvents({events:data.data.data})
       // data.then(res => {
       //     console.log("ee4t")
@@ -71,7 +71,7 @@ export default function Orders() {
       // })
     }
 
-    fetchData("transactions/5f8dd0d9a32f520ed4245414?offset=2");
+    fetchData(`event/${props.id}/transactions/`);
   });
   // console.log(events);
   return (

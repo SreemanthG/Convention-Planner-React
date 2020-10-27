@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState,useEffect  } from 'react';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,6 +7,8 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import axios from '../../axios'
+import TransactionsTable from './TransactionsTable';
 import Table from '../Dashboard/Table'
 const useStyles = makeStyles((theme) => ({
   card:{
@@ -26,13 +28,36 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function ViewEvent() {
+function ViewEvent(props) {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
-  
+    const [event1, setEvent] = useState({});
+  useEffect(() => {
+    async function fetchData(str) {
+      console.log(localStorage.getItem("token"));
+    const data = await axios.get(str, {
+        headers: {
+           Authorization: localStorage.getItem("token")// 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmOGRkMGQ5YTMyZjUyMGVkNDI0NTQxNCIsImlhdCI6MTYwMzYzMTY4NSwiZXhwIjoxNjAzNjM1Mjg1fQ.MJSd5bwpTFfwCkArZao3Td-thXXuA6xabMgp9Ek0s3c" //the token is a variable which holds the token
+        }
+      })
+    // console.log(data);
+      setEvent({event1:data.data.data})
+
+    }
+
+    fetchData(`event/${props.match.params.id}`);
+  });
+    // console.log(props.location.state);
+    // console.log(event1.event1);
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
+
+    const changeDateFormat = (date) =>{
+      var d =new Date(date)
+      console.log(d.toLocaleString());
+      return d.toLocaleString()
+    }
     return (
         <div className="ViewEvent">
              <Container maxWidth="xl">
@@ -42,7 +67,7 @@ function ViewEvent() {
 
                 <Grid item xs={6}>
                     <Typography variant="h4" gutterBottom>
-                        h3. Heading
+                        {event1.event1? event1.event1.name:<div></div>}
                     </Typography>
                     <Typography variant="h6" gutterBottom>
                     Siam Vit
@@ -50,24 +75,18 @@ function ViewEvent() {
                 </Grid>
                 <Grid item xs={6}>
                     <Typography className={classes.paper} variant="h6" gutterBottom>
-                        26th April, 2020
+                {event1.event1? (changeDateFormat(event1.event1.time)):<div></div>}
+                        
                     </Typography>
                     <Typography className={classes.paper} variant="h6" gutterBottom>
-                        150 /-
+                    {event1.event1? event1.event1.price +"/-":<div></div>}
                     </Typography>
                 </Grid>
                 <Grid item xs={12}>
 
                 <Typography variant="body1" gutterBottom>
-                    body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
-                    unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
-                    dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
-                    unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
-                    dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
-                    unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
-                    dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
-                    unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
-                    dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
+                {event1.event1? event1.event1.description:<div></div>}
+
                 </Typography>
                 </Grid>
 
@@ -107,8 +126,9 @@ function ViewEvent() {
                 
                  
                 <Grid item xs={12}>
-                    <Table />
-
+                    {/* <Table /> */}
+                   {value==2?<TransactionsTable id={event1.event1? event1.event1._id:0}/>: value}
+       
                 </Grid>
                 </Grid>
                 </Paper>

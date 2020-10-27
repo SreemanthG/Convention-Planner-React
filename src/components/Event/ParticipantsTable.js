@@ -57,10 +57,10 @@ export default function Orders() {
     async function fetchData(str) {
     const data = await axios.get(str, {
         headers: {
-          Authorization: localStorage.getItem("token")// 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmOGRkMGQ5YTMyZjUyMGVkNDI0NTQxNCIsImlhdCI6MTYwMzY0MzIzMywiZXhwIjoxNjAzNjQ2ODMzfQ.viwysV992ikkJE2NV9AGy1aJqH9CkbpmBa8nbhIjXjI" //the token is a variable which holds the token
+          Authorization: localStorage.getItem("token")// 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmOGRkMGQ5YTMyZjUyMGVkNDI0NTQxNCIsImlhdCI6MTYwMzYzMTY4NSwiZXhwIjoxNjAzNjM1Mjg1fQ.MJSd5bwpTFfwCkArZao3Td-thXXuA6xabMgp9Ek0s3c" //the token is a variable which holds the token
         }
       })
-    // console.log(data);
+    console.log(data);
       setEvents({events:data.data.data})
       // data.then(res => {
       //     console.log("ee4t")
