@@ -1,5 +1,6 @@
 import React, { useState,useEffect  } from 'react';
-import Link from '@material-ui/core/Link';
+// import Link from '@material-ui/core/Link';
+import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -34,22 +35,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// async function getEventDetails(str){
-//   await axios
-//             .get(str, {
-//               headers: {
-//                 Authorization: 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmOGRkMGQ5YTMyZjUyMGVkNDI0NTQxNCIsImlhdCI6MTYwMzI5Mjg4NSwiZXhwIjoxNjAzMjk2NDg1fQ.Y_qRag5J9r8Fhn14IzmPYUHztJvlxxBsyWkPS_V_mpo" //the token is a variable which holds the token
-//               }
-//             })
-//             .then(res => {
-//                 const data = res.data
-//                 console.log(data.data)
-//                 return data.data
-// })
-//             .catch((error) => {
-//                 console.log(error)
-//             })
-// }
 export default function Orders(props) {
   const classes = useStyles();
   const [events, setEvents] = useState({});
@@ -62,13 +47,7 @@ export default function Orders(props) {
       })
     console.log(data);
       setEvents({events:data.data.data})
-      // data.then(res => {
-      //     console.log("ee4t")
-      //     setEvents({events:res.data.data})
-      // })
-      // .catch((error) => {
-      //     console.log(error)
-      // })
+
     }
 
     fetchData(`event/${props.id}/transactions/`);
@@ -120,8 +99,9 @@ export default function Orders(props) {
         </TableBody>
       </Table>
       <div className={classes.seeMore}>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          See more orders
+
+        <Link to={`/event/${props.id}/transaction/new`} id={props.id}>
+          Add Transaction
         </Link>
       </div>
     </React.Fragment>

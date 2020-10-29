@@ -8,39 +8,30 @@ import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import axios from '../../axios'
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import {useHistory} from 'react-router-dom'
-;export default function AddressForm() {
+import {useHistory,Redirect} from "react-router-dom"
+export default function AddressForm(props) {
   const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
+  const [amount, setAmount] = useState('');
   const [description, setDesc] = useState('');
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [pincode, setPincode] = useState('');
-  const [country, setCountry] = useState('');
   const [time, setTime] = useState('');
-  const [state, setState] = useState('');
-  const history = useHistory();
+  const history = useHistory(); 
+
   const handleSubmission = async (e)=>{
    const postData= {
       name: name,
-      price: price,
+      amount: amount,
       description:description,
-      address:address,
-      city:city,
-      pincode:pincode,
-      country:country,
-      time:time,
-      state:state,
+      timestamp:time,
     }
-    console.log(postData);
-    const data = await axios.post("/event/",postData,{
+    // console.log(postData);
+    const data = await axios.post(`/event/${props.match.params.id}/transaction`,postData,{
         headers: {
           'Content-Type': 'application/json',
           'Authorization': localStorage.getItem("token")
       }
     })
-      console.log(data);
-      history.push("/events")
+      console.log(data);    
+    history.push(`/event/${props.match.params.id}/view`)
     // loginCheck(data.data.data.token);
 }
 
@@ -48,7 +39,7 @@ import {useHistory} from 'react-router-dom'
     <Container maxWidth="sm">
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Add Event
+        Add Transaction
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
@@ -65,13 +56,13 @@ import {useHistory} from 'react-router-dom'
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="price"
-            name="price"
-            label="Price"
+            id="amount"
+            name="amount"
+            label="Amount"
             fullWidth
             autoComplete=""
             type="number"
-            onChange={e => setPrice(e.target.value)} 
+            onChange={e => setAmount(e.target.value)} 
           />
         </Grid>
         <Grid item xs={12}>
@@ -85,53 +76,7 @@ import {useHistory} from 'react-router-dom'
             onChange={e => setDesc(e.target.value)} 
           />
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            id="address"
-            name="address"
-            label="Address"
-            fullWidth
-            autoComplete="shipping address-line1"
-            onChange={e => setAddress(e.target.value)} 
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="city"
-            name="city"
-            label="City"
-            fullWidth
-            autoComplete="shipping address-level2"
-            onChange={e => setCity(e.target.value)} 
-          />
-        </Grid>
-       
-        <Grid item xs={12} sm={6}>
-          <TextField id="state" name="state" label="State/Province/Region" fullWidth onChange={e => setState(e.target.value)}   autoComplete="shipping state"/>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="zip"
-            name="zip"
-            label="Zip / Postal code"
-            fullWidth
-            autoComplete="shipping postal-code"
-            onChange={e => setPincode(e.target.value)} 
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="country"
-            name="country"
-            label="Country"
-            fullWidth
-            autoComplete="shipping country"
-            onChange={e => setCountry(e.target.value)} 
-          />
-        </Grid>
+    
         <Grid item xs={12} sm={6}>
           <TextField
             required
@@ -143,8 +88,6 @@ import {useHistory} from 'react-router-dom'
             onChange={e => setTime(e.target.value)} 
           />
         </Grid>
-       
-    
         {/* <Grid item xs={12}>
           <FormControlLabel
             control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
@@ -154,7 +97,7 @@ import {useHistory} from 'react-router-dom'
        
         <Grid item xs={4}>
         <Button variant="contained" color="primary" onClick={handleSubmission}>
-          Submit
+          Add
         </Button>
         </Grid>
 

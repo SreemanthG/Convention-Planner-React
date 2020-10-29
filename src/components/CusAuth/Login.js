@@ -43,15 +43,15 @@ export default function ComplexGrid(props) {
   }, [props.loginStatus])
   const loginCheck = (token) =>{
     localStorage.clear();
-    localStorage.setItem('token',`Bearer ${token}`);
+    localStorage.setItem('custoken',`Bearer ${token}`);
     props.setlog();
     console.log(props);
-    history.push('/home')
+    history.push('/cus/home')
 }  
 
 
   const handleLogin = async (e)=>{
-        const data = await axios.post("/login",{
+        const data = await axios.post("/cus/login",{
           email: email,
           password: pass,
         },{
@@ -59,18 +59,12 @@ export default function ComplexGrid(props) {
               'Content-Type': 'application/json'
           }
         })
-     
-        if(data.data.status=="error"){
-        history.push('/login')
-          
-        }else{
-          loginCheck(data.data.data.token);
-
-        }
+          console.log(data.data.data.token);
+        loginCheck(data.data.data.token);
     }
 
 if(isLoggedIn){
-  return <Redirect to="/home" />
+  return <Redirect to="/cus/home" />
 }
   return (
     <div className={classes.root} style={{}}>
@@ -97,7 +91,7 @@ if(isLoggedIn){
             </Grid>
             <Grid item  xs={12} spacing={5} style={{ marginTop: 15,marginBottom: 15,textAlign:'center' }}>
             <Typography variant="subtitle2" gutterBottom>
-                Dont you have an account yet? <Link to="/signup">Sign Up</Link>
+                Dont you have an account yet? <Link to="/cus/signup">Sign Up </Link>
             </Typography>
             </Grid>
         </Grid>

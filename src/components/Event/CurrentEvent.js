@@ -30,7 +30,7 @@ export default function CenteredGrid() {
           Authorization: localStorage.getItem("token")//the token is a variable which holds the token
         }
       })
-    console.log(data);
+    // console.log(data);
       setEvents({events:data.data.data})
     }
 

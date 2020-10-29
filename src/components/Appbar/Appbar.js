@@ -135,8 +135,8 @@ export default function PersistentDrawerLeft(props) {
         <Divider />
         <List>
           {[{name:'Dashboard',link:"/home"},
-          {name:'Profile',link:"/event/view"},
-          {name:'Budget',link:"/events/new"},
+          {name:'Profile',link:"/profile"},
+          {name:'Budget',link:"/budget"},
           {name:'Events',link:"/events"}].map((item, index) => (
             <Link style={navStyle} to={item.link}>
               <ListItem button key={item.name}>

@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from '../../axios'
 import qs from 'qs'
-import {useHistory,Redirect,Link} from "react-router-dom"
+import {useHistory,Redirect} from "react-router-dom"
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -37,54 +37,57 @@ export default function ComplexGrid(props) {
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
-  const [isLoggedIn, setLoggedIn] = useState(props.loginStatus);
-  useEffect(() => {
-    setLoggedIn(props.loginStatus);
-  }, [props.loginStatus])
-  const loginCheck = (token) =>{
-    localStorage.clear();
-    localStorage.setItem('token',`Bearer ${token}`);
-    props.setlog();
-    console.log(props);
-    history.push('/home')
+  const [name, setName] = useState('');
+  const [org, setOrg] = useState('');
+  const [number, setNumber] = useState('');
+
+  const loginCheck = () =>{
+
+    history.push('/cus/login')
 }  
 
 
   const handleLogin = async (e)=>{
-        const data = await axios.post("/login",{
+        const data = await axios.post("/cus/signup",{user:{
+          name:name,
           email: email,
           password: pass,
-        },{
+          organization:org,
+          number:number
+        }},{
             headers: {
               'Content-Type': 'application/json'
           }
         })
-     
-        if(data.data.status=="error"){
-        history.push('/login')
-          
-        }else{
-          loginCheck(data.data.data.token);
-
-        }
+      
+        loginCheck();
     }
 
-if(isLoggedIn){
-  return <Redirect to="/home" />
-}
+
   return (
     <div className={classes.root} style={{}}>
-      {console.log(isLoggedIn)}
       <Paper className={classes.paper}>
         <Grid container spacing={2}>
            
             <Grid item  xs={12} spacing={3}>
                 <Typography variant="h4" gutterBottom style={{ marginTop: 15,marginBottom: 15,textAlign:'center' }}>
-                    Sign In
+                    Customer Sign Up
                 </Typography>
             </Grid>
-            <Grid item  xs={12} spacing={5}  style={{ marginTop: 15 }}>
+            <Grid item  xs={6} spacing={5}  style={{ marginTop: 15 }}>
             <TextField id="standard-basic1"  onChange={e => setEmail(e.target.value)} label="Email" fullWidth  variant="outlined"/>
+            </Grid>
+            <br/>
+            <Grid item  xs={6} spacing={5}  style={{ marginTop: 15 }}>
+            <TextField id="standard-basic1"  onChange={e => setName(e.target.value)} label="Username" fullWidth  variant="outlined"/>
+            </Grid>
+            <br/>
+            <Grid item  xs={6} spacing={5}  style={{ marginTop: 15 }}>
+            <TextField id="standard-basic1"  onChange={e => setOrg(e.target.value)} label="Orginazation Name" fullWidth  variant="outlined"/>
+            </Grid>
+            <br/>
+            <Grid item  xs={6} spacing={5}  style={{ marginTop: 15 }}>
+            <TextField id="standard-basic1" type="number" onChange={e => setNumber(e.target.value)} label="Number" fullWidth  variant="outlined"/>
             </Grid>
             <br/>
             <Grid item  xs={12} spacing={5} style={{ marginTop: 15 }}>
@@ -92,12 +95,12 @@ if(isLoggedIn){
             </Grid>
             <Grid item  xs={12} spacing={5} style={{ marginTop: 15,display:'flex',justifyContent:'center' }}>
                 <Button onClick={handleLogin} style={{width:'10vw'}} variant="contained" color="primary">
-                    Login
+                    Register
                 </Button>
             </Grid>
             <Grid item  xs={12} spacing={5} style={{ marginTop: 15,marginBottom: 15,textAlign:'center' }}>
             <Typography variant="subtitle2" gutterBottom>
-                Dont you have an account yet? <Link to="/signup">Sign Up</Link>
+                Already have an account? Login
             </Typography>
             </Grid>
         </Grid>

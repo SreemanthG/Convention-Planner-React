@@ -50,28 +50,22 @@ const useStyles = makeStyles((theme) => ({
 //                 console.log(error)
 //             })
 // }
-export default function Orders() {
+export default function Orders(props) {
   const classes = useStyles();
   const [events, setEvents] = useState({});
   useEffect(() => {
     async function fetchData(str) {
     const data = await axios.get(str, {
         headers: {
-          Authorization: localStorage.getItem("token")// 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmOGRkMGQ5YTMyZjUyMGVkNDI0NTQxNCIsImlhdCI6MTYwMzYzMTY4NSwiZXhwIjoxNjAzNjM1Mjg1fQ.MJSd5bwpTFfwCkArZao3Td-thXXuA6xabMgp9Ek0s3c" //the token is a variable which holds the token
+          Authorization: localStorage.getItem("token")//'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmOGRkMGQ5YTMyZjUyMGVkNDI0NTQxNCIsImlhdCI6MTYwMzYzMTY4NSwiZXhwIjoxNjAzNjM1Mjg1fQ.MJSd5bwpTFfwCkArZao3Td-thXXuA6xabMgp9Ek0s3c" //the token is a variable which holds the token
         }
       })
-    console.log(data);
+    // console.log(data);
       setEvents({events:data.data.data})
-      // data.then(res => {
-      //     console.log("ee4t")
-      //     setEvents({events:res.data.data})
-      // })
-      // .catch((error) => {
-      //     console.log(error)
-      // })
+
     }
 
-    fetchData("transactions/5f8dd0d9a32f520ed4245414?offset=2");
+    fetchData(`event/${props.id}/customers/`);
   });
   // console.log(events);
   return (
@@ -90,7 +84,7 @@ export default function Orders() {
           { events.events? events.events.map((row,i) => (
             <TableRow key={row._id}>
               <TableCell>{i+1}</TableCell>
-              <TableCell>{row.timestamp}</TableCell>
+              <TableCell>{row.email}</TableCell>
               <TableCell>{row.name}</TableCell>
               <TableCell align="right">{row.amount}</TableCell>
             </TableRow>

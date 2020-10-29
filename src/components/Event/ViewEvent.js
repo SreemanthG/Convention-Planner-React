@@ -9,7 +9,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import axios from '../../axios'
 import TransactionsTable from './TransactionsTable';
+import ParticipantsTable from './ParticipantsTable';
 import Table from '../Dashboard/Table'
+import {Link,Redirect,useHistory} from "react-router-dom"
 const useStyles = makeStyles((theme) => ({
   card:{
       padding:30,
@@ -32,9 +34,10 @@ function ViewEvent(props) {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
     const [event1, setEvent] = useState({});
+    const history = useHistory()
   useEffect(() => {
     async function fetchData(str) {
-      console.log(localStorage.getItem("token"));
+      // console.log(localStorage.getItem("token"));
     const data = await axios.get(str, {
         headers: {
            Authorization: localStorage.getItem("token")// 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmOGRkMGQ5YTMyZjUyMGVkNDI0NTQxNCIsImlhdCI6MTYwMzYzMTY4NSwiZXhwIjoxNjAzNjM1Mjg1fQ.MJSd5bwpTFfwCkArZao3Td-thXXuA6xabMgp9Ek0s3c" //the token is a variable which holds the token
@@ -52,11 +55,31 @@ function ViewEvent(props) {
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
-
+    const handleDelete = async () =>{
+      alert("Are you sure wanna delete?");
+     
+      
+      const data = await axios.delete(`event/${props.match.params.id}`, {
+          headers: {
+             Authorization: localStorage.getItem("token")// 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmOGRkMGQ5YTMyZjUyMGVkNDI0NTQxNCIsImlhdCI6MTYwMzYzMTY4NSwiZXhwIjoxNjAzNjM1Mjg1fQ.MJSd5bwpTFfwCkArZao3Td-thXXuA6xabMgp9Ek0s3c" //the token is a variable which holds the token
+          }
+        })
+      return history.push("/events")
+    }
     const changeDateFormat = (date) =>{
       var d =new Date(date)
-      console.log(d.toLocaleString());
+      // console.log(d.toLocaleString());
       return d.toLocaleString()
+    }
+    const showTables = () => {
+      // console.log(value);
+      if(value==2){
+        return <TransactionsTable id={event1.event1? event1.event1._id:0}/>
+      } else if(value ==1){
+        return 1
+      } else{
+        return <ParticipantsTable id={event1.event1? event1.event1._id:0}/>
+      }
     }
     return (
         <div className="ViewEvent">
@@ -90,16 +113,19 @@ function ViewEvent(props) {
                 </Typography>
                 </Grid>
 
-                <Grid item xs={1}>
-                <Button variant="contained" color="secondary">
+                <Grid item xs={12}>
+                <Button variant="contained" color="secondary" onClick={handleDelete}> 
                     Delete
                 </Button>
                 </Grid>
 
-                <Grid item xs={1}>
+                <Grid item xs={12}>
+                <Link to={`/event/${props.match.params.id}/edit`}>
                 <Button variant="contained" color="primary">
                     Edit
                 </Button>
+                </Link>
+
                 </Grid>
                 </Grid>
 
@@ -127,8 +153,9 @@ function ViewEvent(props) {
                  
                 <Grid item xs={12}>
                     {/* <Table /> */}
-                   {value==2?<TransactionsTable id={event1.event1? event1.event1._id:0}/>: value}
-       
+                   {/* {value==2?<TransactionsTable id={event1.event1? event1.event1._id:0}/>: value} */}
+                   {/* {value==0?<ParticipantsTable id={event1.event1? event1.event1._id:0}/>: value} */}
+                  {showTables()}
                 </Grid>
                 </Grid>
                 </Paper>
